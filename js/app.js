@@ -4,34 +4,38 @@ console.log('Connected')
 
 var foods = ['burgers', 'fries', 'pasta', 'shrimp', 'sushi']
 
-for (var i = 0; i < foods.length; i++) {
-  $('#foods').append('<li>' + foods[i] + '</li>')
-}
+foods.forEach(function(food){
+   $('#foods').append('<li>' + food + '</li>')
+ })
 
-//or this:
+ $('#drinks').append('<li>Mountain Dew</li><li>Sprite</li><li>Dr. Pepper</li>')
 
-$('#drinks').append("<li> Sprite</li> <li> Coke </li> <li>Diet Coke</li>")
+ $('#addFood').on('click', function(){
+   var newFood = $('#foodInput').val()
+   if(newFood != '') {
+     $('#foods').append('<li>' + newFood + '</li>')
+     // $('<li />', {html: newFood}).appendTo('ul#foods')
+     $('#foodInput').val('')
+   }
+ })
 
-// $('#foods').html("<li> Pizza</li> <li> Pasta</li> <li>French Fries</li>")
+ $('#addDrink').on('click', function(){
+   var newDrink = $('#drinkInput').val()
+   if(newDrink != '') {
+     $('#drinks').append('<li>' + newDrink + '</li>')
+     $('#drinkInput').val('')
+   }
+ })
 
-
-
-$('#addFood').on('click', function(){
-  if ($('#foodInput').val() != ''){
-  var newFood = $('#foodInput').val()
-  $('#foods').append('<li>' + newFood + '</li>')
-  $('#foodInput').val('')
-}
-})
-
-$('#addDrink').on('click', function(){
-  if ($('#drinkInput').val() != ''){
-  var newFood = $('#drinkInput').val()
-  $('#drinks').append('<li>' + newFood + '</li>')
-  $('#drinkInput').val('')
-}
-})
-
-$("#drinkInput").keypress(function(){
-    $("#foodInput").css("background-color", "pink");
-});
+ $('#drinkInput').keydown(function(e){
+   if(e.keyCode === 13){
+     var newDrink = $('#drinkInput').val()
+     if(newDrink !== '') {
+       $('#drinks').append('<li class="purpleText">' + newDrink + '</li>')
+       $('#drinkInput').val('')
+       $('#drinkInput').removeClass('purple')
+     }
+   } else {
+     $('#drinkInput').addClass('purple')
+   }
+ })
